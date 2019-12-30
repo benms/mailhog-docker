@@ -1,0 +1,22 @@
+version: '3'
+
+networks:
+  shared:
+   external:
+    name: mysql_net
+
+services:
+  mailhog:
+     image: mailhog/mailhog
+     container_name: mailhog
+     restart: always
+     ports:
+      - ${WEB_HOST_PORT:-8025}:8025
+      #- ${WEB_HOST_PORT:-1025}:1025
+     logging:
+      driver: json-file
+      options:
+        max-file: '5'
+        max-size: 50m
+     networks:
+      - shared
